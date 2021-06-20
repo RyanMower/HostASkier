@@ -51,6 +51,19 @@ def profile(request):
 
 @login_required
 def pending_coordinators_view(request):
+
+    if request.method == 'POST':
+        print("inside post")
+        # First, you should retrieve the team instance you want to update
+        account = Account.objects.filter(id=request.POST['id']).first()
+
+        # Next, you update the status
+        if request.POST.get('status'):
+            if request.POST.get('status') == "Accept":
+                print("approved!")
+                account.approved = True
+                account.save()
+
     if request.user.is_admin:
         context = {
             'pending_coordinators' : Account.objects.filter(approved=False)
