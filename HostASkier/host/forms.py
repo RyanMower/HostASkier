@@ -7,6 +7,7 @@ class HostForm(forms.ModelForm):
 
     start_date  = forms.DateField(widget=forms.SelectDateWidget)
     end_date    = forms.DateField(widget=forms.SelectDateWidget)
+    image       = forms.ImageField()
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

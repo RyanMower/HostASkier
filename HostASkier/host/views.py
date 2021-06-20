@@ -14,7 +14,7 @@ class HostFormView(FormView):
     success_url = '/done/'
 
     def form_valid(self, form):
-        # TODO send email to coordinator
+        form.save()
         return super().form_valid(form)
 
 def become_a_host_view(request):

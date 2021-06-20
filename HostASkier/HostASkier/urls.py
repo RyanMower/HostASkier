@@ -31,8 +31,8 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='account/logout.html'), name='logout'),
     path('pending-skiers', skier_views.pending_skiers_view, name='pendingskiers'),
     path('pending-hosts', host_views.pending_hosts_view, name='pendinghosts'),
-    path('become-a-skier', skier_views.become_a_skier_view, name='becomeaskier'),
-    path('become-a-host', host_views.become_a_host_view, name='becomeahost'),
+    path('become-a-skier', skier_views.SkierFormView.as_view(template_name='skier/skier_form.html'), name='becomeaskier'),
+    path('become-a-host', host_views.HostFormView.as_view(template_name='host/host_form.html'), name='becomeahost'),
 ]
 
 if settings.DEBUG:

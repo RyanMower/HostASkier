@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-
 {% block content %}
   <html lang="en">
     <head>
@@ -10,8 +9,7 @@
     <body>
         <form method = "post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Upload</button>
+            {% crispy form %}
         </form>
     </body>
     </html>
