@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'account',
+    'skier',
 ]
 
 MIDDLEWARE = [
@@ -157,3 +158,6 @@ MEDIA_URL = '/media/'
 
 # form styling
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = 'start'
+LOGIN_URL = 'login'
