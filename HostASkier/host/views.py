@@ -32,14 +32,19 @@ def become_a_host_view(request):
 
 @login_required
 def pending_hosts_view(request):
-    form = HostForm(request.POST or None)
-
-    if form.is_valid():
-        form.save()
-    else:
-        messages.error(request, f'{request.user.username}\'s Please enter a valid address.')
-    context = {
-        'pending_hosts' : Host.objects.filter(approved=False)
-    }
-    ## Check if NONE, then render different page
-    return render(request, "host/pending_host_form.html", context)
+    if request.user.approved:
+        form = HostForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+        else:
+            messages.error(request, f'{request.user.username}\'s Please enter a valid address.')
+        context = {
+            'pending_hosts' : Host.objects.filter(approved=False)
+        }
+        ## Check if NONE, then render different page
+        return render(request, "host/pending_host_form.html", context)
+    else: ## Not approved by admin
+        context = {
+            'data' : []
+        }
+        return render(request, "main/not_approved_coordinator.html", context)

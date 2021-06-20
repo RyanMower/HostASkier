@@ -6,7 +6,7 @@ from urllib.parse import urlencode
 import yaml
 import requests 
 from django.contrib.auth.decorators import login_required
-
+from .models import Account
 
 
 def register(request):
@@ -48,3 +48,16 @@ def profile(request):
         'u_form': []
     }
     return render(request, 'account/profile.html', context)
+
+@login_required
+def pending_coordinators_view(request):
+    if request.user.is_admin:
+        context = {
+            'pending_coordinators' : Account.objects.filter(approved=False)
+        }
+        return render(request, "account/pending_coordinators.html", context)
+    else:
+        context = {
+            'data' : []
+        }
+        return render(request, "main/not_approved_admin.html", context)
