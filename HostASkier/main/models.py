@@ -28,20 +28,22 @@ class Host(models.Model):
     events          = MultiSelectField(verbose_name="Events", choices=EVENTS)
     availability    = models.TextField(verbose_name="Availability", null=True) 
     notes           = models.TextField(verbose_name="Additional Notes", null=True)
-    # TODO add university affiliation field
+    start_date      = models.DateField(verbose_name="Start Date")
+    end_date        = models.DateField(verbose_name="End Date")
+    image           = models.ImageField(verbose_name="Site Picture", upload_to="site_pics")
 
 class Skier(models.Model):
 
     name            = models.CharField(verbose_name="Name/Organization", max_length=254, null=False)
     email           = models.EmailField(verbose_name="Email", max_length=254, null=False)
     phone_number    = PhoneNumberField(verbose_name="Phone Number", null=False)
-    address_1       = models.CharField(verbose_name="Address", max_length=128, null=False)
-    address_2       = models.CharField(verbose_name="", max_length=128, blank=True, null=True)
+    #address_1       = models.CharField(verbose_name="Address", max_length=128, null=False)
+    #address_2       = models.CharField(verbose_name="", max_length=128, blank=True, null=True)
     city            = models.CharField(verbose_name="City", max_length=128, null=False)
     state           = USStateField(verbose_name="State", null=False)
-    zip_code        = models.CharField(verbose_name="Zip Code", max_length=5, null=False)
+    #zip_code        = models.CharField(verbose_name="Zip Code", max_length=5, null=False)
     events          = MultiSelectField(verbose_name="Events", choices=EVENTS)
     availability    = models.TextField(verbose_name="Availability", null=True)
     start_date      = models.DateField(verbose_name="Start Date")
     end_date        = models.DateField(verbose_name="End Date")
-    # TODO add images field for pictures of site
+    university      = models.CharField(verbose_name="Universtiy Affiliation (if applicable)", max_length=254, blank=True, null=True)
