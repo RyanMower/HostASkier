@@ -5,6 +5,7 @@ from skier.forms import SkierForm
 from django.views.generic.edit import FormView
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from host.models import Host
 
 
 class HostFormView(FormView):
@@ -20,6 +21,7 @@ def become_a_host_view(request):
     form = HostForm(request.POST or None)
 
     if form.is_valid():
+        print("Saving")
         form.save()
     else:
         messages.error(request, f'{request.user.username}\'s Please enter a valid address.')
@@ -27,7 +29,6 @@ def become_a_host_view(request):
         'form' : form
     }
     return render(request, "host/host_form.html", context)
-
 
 @login_required
 def pending_hosts_view(request):
@@ -38,6 +39,7 @@ def pending_hosts_view(request):
     else:
         messages.error(request, f'{request.user.username}\'s Please enter a valid address.')
     context = {
-        'form' : form
+        'pending_hosts' : Host.objects.filter(approved=False)
     }
-    return render(request, "host/host_form.html", context)
+    ## Check if NONE, then render different page
+    return render(request, "host/pending_host_form.html", context)

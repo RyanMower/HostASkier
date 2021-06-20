@@ -30,4 +30,5 @@ class Host(models.Model):
     notes           = models.TextField(verbose_name="Additional Notes", null=True)
     start_date      = models.DateField(verbose_name="Start Date")
     end_date        = models.DateField(verbose_name="End Date")
-    image           = models.ImageField(verbose_name="Site Picture", upload_to="site_pics")
+    image           = models.ImageField(verbose_name="Site Picture", upload_to="media/site_pics", null=True, blank=True)
+    approved        = models.BooleanField(default=False, blank=True)
