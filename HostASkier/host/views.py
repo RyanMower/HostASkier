@@ -1,22 +1,23 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .forms import SkierForm
+from .forms import HostForm
+from skier.forms import SkierForm
 from django.views.generic.edit import FormView
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-# Create your views here.
-class SkierFormView(FormView):
-    template_name = 'skier_form.html'
-    form_class = SkierForm
+
+class HostFormView(FormView):
+    template_name = 'host_form.html'
+    form_class = HostForm
     success_url = '/done/'
 
     def form_valid(self, form):
         # TODO send email to coordinator
         return super().form_valid(form)
 
-def become_a_skier_view(request):
-    form = SkierForm(request.POST or None)
+def become_a_host_view(request):
+    form = HostForm(request.POST or None)
 
     if form.is_valid():
         form.save()
@@ -25,11 +26,12 @@ def become_a_skier_view(request):
     context = {
         'form' : form
     }
-    return render(request, "skier/skier_form.html", context)
+    return render(request, "host/host_form.html", context)
+
 
 @login_required
-def pending_skiers_view(request):
-    form = SkierForm(request.POST or None)
+def pending_hosts_view(request):
+    form = HostForm(request.POST or None)
 
     if form.is_valid():
         form.save()
@@ -38,4 +40,4 @@ def pending_skiers_view(request):
     context = {
         'form' : form
     }
-    return render(request, "skier/skier_form.html", context)
+    return render(request, "host/host_form.html", context)

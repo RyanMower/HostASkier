@@ -34,21 +34,4 @@ class Migration(migrations.Migration):
                 ('image', models.ImageField(upload_to='site_pics', verbose_name='Site Picture')),
             ],
         ),
-        migrations.CreateModel(
-            name='Skier',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=254, verbose_name='Name/Organization')),
-                ('email', models.EmailField(max_length=254, verbose_name='Email')),
-                ('phone_number', phonenumber_field.modelfields.PhoneNumberField(max_length=128, region=None, verbose_name='Phone Number')),
-                ('city', models.CharField(max_length=128, verbose_name='City')),
-                ('state', localflavor.us.models.USStateField(max_length=2, verbose_name='State')),
-                ('events', multiselectfield.db.fields.MultiSelectField(choices=[(1, 'Slalom'), (2, 'Jump'), (3, 'Trick')], max_length=5, verbose_name='Events')),
-                ('availability', models.TextField(null=True, verbose_name='Availability')),
-                ('start_date', models.DateField(verbose_name='Start Date')),
-                ('end_date', models.DateField(verbose_name='End Date')),
-                ('university', models.CharField(blank=True, max_length=254, null=True, verbose_name='Universtiy Affiliation (if applicable)')),
-                ('approved', models.BooleanField(blank=True, default=False)),
-            ],
-        ),
     ]
