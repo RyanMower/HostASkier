@@ -15,6 +15,6 @@ class MatchView(ListView):
     context_object_name = "context"
 
     def get_queryset(self):
-        queryset = {'hosts': Host.objects.all(), 
-                    'skiers': Skier.objects.all()}
+        queryset = {'hosts': Host.objects.all().filter(approved=True), 
+                    'skiers': Skier.objects.all().filter(approved=True)}
         return queryset
