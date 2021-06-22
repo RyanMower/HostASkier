@@ -52,25 +52,33 @@ def profile(request):
 @login_required
 def pending_coordinators_view(request):
 
+    if not request.user.is_admin: ## Ensure user is admin
+        context = {
+            'data' : []
+        }
+        return render(request, "main/not_approved_admin.html", context)
+
     if request.method == 'POST':
-        print("inside post")
         # First, you should retrieve the team instance you want to update
         account = Account.objects.filter(id=request.POST['id']).first()
 
         # Next, you update the status
         if request.POST.get('status'):
             if request.POST.get('status') == "Accept":
-                print("approved!")
                 account.approved = True
                 account.save()
+            elif request.POST.get('status') == "Decline":
+                account.delete() ## Deletes the object from the database
 
-    if request.user.is_admin:
-        context = {
-            'pending_coordinators' : Account.objects.filter(approved=False)
-        }
-        return render(request, "account/pending_coordinators.html", context)
+    pending_coordinators = Account.objects.filter(approved=False)
+
+    ## Check if there are any pending-coordinators to render
+    if len(pending_coordinators) == 0:
+        context = None
+        return render(request, "account/no_pending_coordinators.html", context)
     else:
         context = {
-            'data' : []
+            'pending_coordinators' : pending_coordinators,
         }
-        return render(request, "main/not_approved_admin.html", context)
+        return render(request, "account/pending_coordinators.html", context)
+

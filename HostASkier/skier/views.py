@@ -10,10 +10,11 @@ from skier.models import Skier
 class SkierFormView(FormView):
     template_name = 'skier_form.html'
     form_class = SkierForm
-    success_url = '/done/'
+    success_url = '/'
 
     def form_valid(self, form):
         # TODO send email to coordinator
+        form.save()
         return super().form_valid(form)
 
 def become_a_skier_view(request):
@@ -30,14 +31,31 @@ def become_a_skier_view(request):
 
 @login_required
 def pending_skiers_view(request):
-    form = SkierForm(request.POST or None)
+    ## Skiers approved by coordinator?
+    if not request.user.approved:
+        context = {
+            'data' : []
+        }
+        return render(request, "main/not_approved_coordinator.html", context)
+    
+    if request.method == "POST":
+        skier = Skier.objects.filter(id=request.POST['id']).first()
+        if request.POST.get('status'):
+            if request.POST.get('status') == "Accept":
+                skier.approved = True
+                skier.save()
+            elif request.POST.get('status') == "Decline":
+                skier.delete() ## Deletes the object from the database
 
-    if form.is_valid():
-        form.save()
+    pending_skiers = Skier.objects.filter(approved=False)
+
+    ## Check if there are any pending-coordinators to render
+    if len(pending_skiers) == 0:
+        context = None
+        return render(request, "skier/no_pending_skiers.html", context)
     else:
-        messages.error(request, f'{request.user.username}\'s Please enter a valid address.')
-    context = {
-        'pending_skiers' : Skier.objects.filter(approved=False)
-    }
-    ## Check if NONE, then render different page
-    return render(request, "skier/pending_skier_form.html", context)
+        context = {
+            'pending_skiers' : pending_skiers,
+        }
+        return render(request, "skier/pending_skiers.html", context)
+
