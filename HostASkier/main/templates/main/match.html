@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="row">
+  <div class="col col-md-6 mb-0">
+      <div class="scroll">
+          {% for host in context.hosts %}
+            {{ host.email }}
+          {% endfor %}
+      </div>
+  </div>
+  <div class="col col-md-6 mb-0">
+    <div class="scroll">
+        {% for skier in context.skiers %}
+          {{ skier.email }}
+        {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

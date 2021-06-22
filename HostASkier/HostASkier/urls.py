@@ -14,18 +14,28 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
 from django.urls import path, include
+from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from account import views as account_views
+from main import views as main_views
+from skier import views as skier_views
+from host import views as host_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
     path('register/', account_views.register, name='register'),
-    # path('profile/', user_views.profile, name='profile'),
     path('login/', auth_views.LoginView.as_view(template_name='account/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='account/logout.html'), name='logout'),
-    # path('becomeahost/', becomeahost_views.become_a_host_view, name='becomeahost'),
-    # path('findmyhost/', findmyhost_views.findmyhost_view, name='findmyhost'),
+    path('pending-skiers', skier_views.pending_skiers_view, name='pendingskiers'),
+    path('pending-hosts', host_views.pending_hosts_view, name='pendinghosts'),
+    path('pending-coordinators', account_views.pending_coordinators_view, name='pendingcoordinators'),
+    path('become-a-skier', skier_views.SkierFormView.as_view(template_name='skier/skier_form.html'), name='becomeaskier'),
+    path('become-a-host', host_views.HostFormView.as_view(template_name='host/host_form.html'), name='becomeahost'),
+    path('match/', main_views.MatchView.as_view(template_name='main/match.html'), name='match'),
 ]
 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

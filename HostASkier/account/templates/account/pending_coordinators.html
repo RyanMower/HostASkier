@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+{% for coord in pending_coordinators %}
+  <form method="POST">
+    {% csrf_token %}
+    {{ coord.email }}
+    <input type="submit" value="Decline" name="status">
+    <input type="submit" value="Accept" name="status">
+    <input type="hidden" name="id" value={{ coord.id }}>
+  </form>
+{% endfor %}
+{% endblock content %}

@@ -1,25 +1,20 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .forms import HostForm, SkierForm
-from django.views.generic.edit import FormView
+from django.views.generic.list import ListView
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from itertools import chain
+from host.models import Host
+from skier.models import Skier
 
 def start(request):
     return render(request, 'main/start.html')
 
-class HostFormView(FormView):
-    template_name = 'host_form.html'
-    form_class = HostForm
-    success_url = '/done/'
+class MatchView(ListView):
+    template_name = "match.html"
+    context_object_name = "context"
 
-    def form_valid(self, form):
-        # TODO send email to coordinator
-        return super().form_valid(form)
-
-class SkierFormView(FormView):
-    template_name = 'skier_form.html'
-    form_class = SkierForm
-    success_url = '/done/'
-
-    def form_valid(self, form):
-        # TODO send email to coordinator
-        return super().form_valid(form)
+    def get_queryset(self):
+        queryset = {'hosts': Host.objects.all(), 
+                    'skiers': Skier.objects.all()}
+        return queryset
