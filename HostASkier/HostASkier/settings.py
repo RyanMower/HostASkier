@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import yaml
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -29,11 +30,11 @@ except:
     print("Could not open file: " +fname)
     exit(1)
 
-data = yaml.load(fh, Loader=yaml.FullLoader)['data']
+data = yaml.load(fh, Loader=yaml.FullLoader)
 fh.close()
 
 
-SECRET_KEY = data['secret_key']
+SECRET_KEY = data['data']['secret_key']
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -58,7 +59,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account',
     'skier',
-    'host'
+    'host',
+    'django_email_verification', 
 ]
 
 MIDDLEWARE = [
@@ -162,3 +164,26 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
+
+
+## Email Verification
+def verified_callback(user):
+    user.is_active = True
+
+
+EMAIL_VERIFIED_CALLBACK = verified_callback
+EMAIL_FROM_ADDRESS = 'noreply@aliasaddress.com'
+EMAIL_MAIL_SUBJECT = 'Confirm your email'
+EMAIL_MAIL_HTML = 'main/mail_body.html'
+EMAIL_MAIL_PLAIN = 'main/mail_body.txt'
+EMAIL_TOKEN_LIFE = 60 * 60
+EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
+EMAIL_PAGE_DOMAIN = data['domain']
+
+# For Django Email Backend
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = data['email']['email']
+EMAIL_HOST_PASSWORD = data['email']['app_password'] 
+EMAIL_USE_TLS = True

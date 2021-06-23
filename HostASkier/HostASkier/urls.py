@@ -22,6 +22,7 @@ from account import views as account_views
 from main import views as main_views
 from skier import views as skier_views
 from host import views as host_views
+from django_email_verification import urls as email_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,6 +36,7 @@ urlpatterns = [
     path('become-a-skier', skier_views.SkierFormView.as_view(template_name='skier/skier_form.html'), name='becomeaskier'),
     path('become-a-host', host_views.HostFormView.as_view(template_name='host/host_form.html'), name='becomeahost'),
     path('match/', main_views.MatchView.as_view(template_name='main/match.html'), name='match'),
+    path('email/', include(email_urls)),
 ]
 
 if settings.DEBUG:

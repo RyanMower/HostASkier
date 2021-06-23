@@ -7,8 +7,10 @@ import yaml
 import requests 
 from django.contrib.auth.decorators import login_required
 from .models import Account
+from django_email_verification import send_email
+from django.views.decorators.csrf import csrf_exempt
 
-
+@csrf_exempt
 def register(request):
 
     # determines whether the form is being submitted or visited
@@ -18,9 +20,12 @@ def register(request):
 
         # check validity of form
         if form.is_valid():
-
             # saves user
             form.save()
+            user = Account.objects.filter(email=form.cleaned_data.get('email')).first()
+            user.is_active = False # Email is initially false
+            print("Attempting to send email.")
+            send_email(user)
 
     else:
         form = AccountRegisterForm()
