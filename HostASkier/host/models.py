@@ -11,8 +11,8 @@ WATERSKI_EVENTS =  ((1, 'Slalom'),
                     (4, 'Other'))
 
 EVENTS =   ((1, 'Slalom'),
-                    (2, 'Jump'),
-                    (3, 'Trick'))
+            (2, 'Jump'),
+            (3, 'Trick'))
 
 
 class Host(models.Model):
@@ -30,5 +30,5 @@ class Host(models.Model):
     notes           = models.TextField(verbose_name="Additional Notes", null=True, blank=True)
     start_date      = models.DateField(verbose_name="Start Date")
     end_date        = models.DateField(verbose_name="End Date")
-    image           = models.ImageField(verbose_name="Site Picture", upload_to="media/site_pics", null=True, blank=True)
+    image           = models.ImageField(verbose_name="Site Picture", upload_to="./site_pics/", null=True, blank=True)
     approved        = models.BooleanField(default=False, blank=True)
