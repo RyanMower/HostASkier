@@ -17,8 +17,7 @@ class AccountRegisterForm(UserCreationForm):
                   ]
 
 class AccountUpdateForm(forms.ModelForm):
-    email = forms.EmailField()
 
     class Meta:
         model = Account
-        fields = ['email', 'username']
+        fields = ['username', 'first_name', 'last_name', 'phone_number']
