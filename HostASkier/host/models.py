@@ -27,7 +27,7 @@ class Host(models.Model):
     zip_code        = models.CharField(verbose_name="Zip Code", max_length=5, null=False) 
     events          = MultiSelectField(verbose_name="Events", choices=EVENTS)
     availability    = models.TextField(verbose_name="Availability", null=True) 
-    notes           = models.TextField(verbose_name="Additional Notes", null=True)
+    notes           = models.TextField(verbose_name="Additional Notes", null=True, blank=True)
     start_date      = models.DateField(verbose_name="Start Date")
     end_date        = models.DateField(verbose_name="End Date")
     image           = models.ImageField(verbose_name="Site Picture", upload_to="media/site_pics", null=True, blank=True)

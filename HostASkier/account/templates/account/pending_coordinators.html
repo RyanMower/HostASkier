@@ -1,12 +1,17 @@
 {% extends "coordinator_base.html" %}
 {% block content %}
 {% for coord in pending_coordinators %}
-  <form method="POST">
-    {% csrf_token %}
-    {{ coord.email }}
-    <input type="submit" value="Decline" name="status">
-    <input type="submit" value="Accept" name="status">
-    <input type="hidden" name="id" value={{ coord.id }}>
-  </form>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{ coord.name }}</h5>
+      <a href="#" class="card-link">View Details</a>
+      <form method="POST">
+        {% csrf_token %}
+        <input class="btn btn-primary" type="submit" value="Decline" name="status">
+        <input class="btn btn-primary" type="submit" value="Accept" name="status">
+        <input type="hidden" name="id" value={{ coord.id }}>
+      </form>
+    </div>
+  </div>
 {% endfor %}
 {% endblock content %}
