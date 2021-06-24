@@ -39,6 +39,7 @@ urlpatterns = [
     path('become-a-skier', skier_views.SkierFormView.as_view(template_name='skier/skier_form.html'), name='becomeaskier'),
     path('become-a-host', host_views.HostFormView.as_view(template_name='host/host_form.html'), name='becomeahost'),
     path('match/', main_views.MatchView.as_view(template_name='main/match.html'), name='match'),
+    path('account/', account_views.account, name='account'),
 ]
 
 if settings.DEBUG:

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
-from .forms import AccountRegisterForm
+from .forms import AccountRegisterForm, AccountUpdateForm
 from django.contrib import messages
 from urllib.parse import urlencode
 import yaml
@@ -82,3 +82,19 @@ def pending_coordinators_view(request):
         }
         return render(request, "account/pending_coordinators.html", context)
 
+@login_required
+def account(request): # Used for updating user account
+
+    if request.method == "POST":
+        form = AccountUpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "You successfully updated your account!")
+            return redirect('account')
+    else:
+        form = AccountUpdateForm(instance= request.user)
+
+    context = {
+        'form' : form,
+    }
+    return render(request, 'account/account.html', context)
