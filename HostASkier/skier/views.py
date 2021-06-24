@@ -5,25 +5,31 @@ from django.views.generic.edit import FormView
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from skier.models import Skier
+from django.urls import reverse_lazy
+
 
 # Create your views here.
 class SkierFormView(FormView):
     template_name = 'skier_form.html'
     form_class = SkierForm
-    success_url = '/'
+    success_url = reverse_lazy('home')
 
     def form_valid(self, form):
-        # TODO send email to coordinator
         form.save()
+        messages.success(self.request, f'Thank you! Your submission has been recorded.')
         return super().form_valid(form)
 
+## Creates a skier
 def become_a_skier_view(request):
     form = SkierForm(request.POST or None)
 
     if form.is_valid():
         form.save()
+        messages.success(request, f'Thank you! Your submission has been recorded.')
+        return render('home')
     else:
-        messages.error(request, f'{request.user.username}\'s Please enter a valid address.')
+        messages.error(request, f'Please enter a valid address.')
+
     context = {
         'form' : form
     }

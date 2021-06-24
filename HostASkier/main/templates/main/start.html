@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="container height-50% display-flex align-items-center">
-      <button class="btn btn-primary" href="{% url 'becomeahost' %}">Want to Host a Skier?</button>
-      <button class="btn btn-primary" href="{% url 'becomeaskier' %}">Want to Find a Host?</button>
       <li><a href="{% url 'becomeahost' %}">Become a host today!</a></li>
       <li><a href="{% url 'becomeaskier' %}">Become a skier today!</a></li>
   </div>
