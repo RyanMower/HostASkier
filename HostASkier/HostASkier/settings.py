@@ -162,3 +162,24 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
+
+# needed for password reset via email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+try:
+    fh = open(fname, "r")
+except:
+    print("Could not open file: " +fname)
+    exit(1)
+
+data = yaml.load(fh, Loader=yaml.FullLoader)['email']
+email = data['email']
+password = data['password']
+fh.close()
+
+EMAIL_HOST_USER = email
+EMAIL_HOST_PASSWORD = password
+
