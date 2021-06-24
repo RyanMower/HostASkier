@@ -10,6 +10,7 @@ from skier.models import Skier
 def start(request):
     return render(request, 'main/start.html')
 
+
 class MatchView(ListView):
     template_name = "match.html"
     context_object_name = "context"
