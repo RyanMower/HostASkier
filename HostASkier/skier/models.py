@@ -17,7 +17,7 @@ EVENTS =   ((1, 'Slalom'),
 # Create your models here.
 class Skier(models.Model):
 
-    name            = models.CharField(verbose_name="Name/Organization", max_length=254, null=False)
+    name            = models.CharField(verbose_name="Full Name", max_length=254, null=False)
     email           = models.EmailField(verbose_name="Email", max_length=254, null=False)
     phone_number    = PhoneNumberField(verbose_name="Phone Number", null=False)
     city            = models.CharField(verbose_name="City", max_length=128, null=False)

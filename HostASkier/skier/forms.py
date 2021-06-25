@@ -41,15 +41,15 @@ class SkierForm(forms.ModelForm):
             'name',
             'email',
             'phone_number',
-            # 'address_1',
-            # 'address_2',
             'city',
             'state',
-            # 'zip_code',
             'events',
             'availability',
             'start_date',
             'end_date',
             'university',
         ]
+        widgets = {
+          'availability': forms.Textarea(attrs={'rows':3, 'cols':15}),
+        }
 

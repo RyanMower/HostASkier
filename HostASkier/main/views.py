@@ -9,18 +9,43 @@ from host.models import Host
 from skier.models import Skier
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
+from .models import HomeText
+from .forms import StateForm
 
 
 def home(request):
-    return render(request, 'main/home.html')
+    data =  HomeText.objects.first()
+    context = {}
+    if data:
+        context = {
+            'data' : data,
+        }
+    else:
+        context = {
+            'data' : "No text was found for the home page."
+        }
+    return render(request, 'main/home.html', context)
 
 class MatchView(AccessMixin,  ListView):
     template_name = "match.html"
     context_object_name = "context"
 
     def get_queryset(self):
-        queryset = {'hosts': Host.objects.all().filter(approved=True), 
-                    'skiers': Skier.objects.all().filter(approved=True)}
+
+        queryset = {
+            'hosts' : Host.objects.all().filter(approved=True), 
+            'skiers': Skier.objects.all().filter(approved=True),
+            'form'  : StateForm(self.request.POST or None),
+        }
+
+        if self.request.method == "POST":
+            if request.POST.get('state'):
+                queryset = {
+                    'hosts': Host.objects.all().filter(approved=True).filter(state=self.request.POST.get('state')), 
+                    'skiers': Skier.objects.all().filter(approved=True).filter(state=self.request.POST.get('state')),
+                }
+
+        
         return queryset
 
     def dispatch(self, request, *args, **kwargs):

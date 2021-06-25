@@ -8,9 +8,9 @@ class HostForm(forms.ModelForm):
     start_date  = forms.DateField(widget=forms.SelectDateWidget)
     end_date    = forms.DateField(widget=forms.SelectDateWidget)
     image       = forms.ImageField(required=False)
-    
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+
+    def init(self, args, **kwargs):
+        super().init(args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(

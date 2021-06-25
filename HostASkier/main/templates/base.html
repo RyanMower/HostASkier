@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
-  <body background="../media/gray.jpg">
+  <body style="background-color:rgb(206, 206, 206);">
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-light navbar-static-top" style="background-color: #7ba5c4">
         <div class="container">
@@ -24,9 +24,9 @@
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
               {% if user.is_admin %}
+                <a class="nav-item nav-link" href="{% url 'match' %}">Available Skiers & Hosts</a>
                 <a class="nav-item nav-link" href="{% url 'pendinghosts' %}">Pending Hosts</a>
 	            	<a class="nav-item nav-link" href="{% url 'pendingskiers' %}">Pending Skiers</a>
-	            	<a class="nav-item nav-link" href="{% url 'match' %}">Available Skiers & Hosts</a>
                 <a class="nav-item nav-link" href="{% url 'pendingcoordinators' %}">Pending Coordinators</a>
                 <a class="nav-item nav-link" href='{% url "account" %}'>Account</a>
                 <a class="nav-item nav-link" href='{% url "logout" %}'>Logout</a>

@@ -14,8 +14,14 @@
       {% if object.notes %}
         <p class="article-content">{{ object.notes }}</p>
       {% endif %}
-      {% if object.image %}
-        <img class="article-img" src="{{ object.image.url }}">
+      {% if object.image1 %}
+        <img class="article-img" src="{{ object.image1.url }}">
+      {% endif %}
+      {% if object.image2 %}
+        <img class="article-img" src="{{ object.image2.url }}">
+      {% endif %}
+      {% if object.image3 %}
+        <img class="article-img" src="{{ object.image3.url }}">
       {% endif %}
     </div>
   </article>
