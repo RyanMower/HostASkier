@@ -43,7 +43,7 @@ class Host(models.Model):
         
         # Save and resize Host image
         img = Image.open(self.image.path)
-        if img.height > 300 or img.width > 300: #Resise with correct scale
+        if img.height > 300 or img.width > 300: #Resize with correct scale
             width_bigger = True
             if img.height > img.width:  # Find which side is bigger
                 width_bigger = False
