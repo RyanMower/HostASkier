@@ -11,8 +11,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 
 
-def start(request):
-    return render(request, 'main/start.html')
+def home(request):
+    return render(request, 'main/home.html')
 
 class MatchView(AccessMixin,  ListView):
     template_name = "match.html"
@@ -31,7 +31,7 @@ class MatchView(AccessMixin,  ListView):
                 return super().dispatch(request, *args, **kwargs)
                 
         if authenticated:
-            messages.error(request, "Your account is not approved!")
+            messages.error(request, f"{request.user.username}, your account is not approved!")
         else:
             messages.error(request, "Your are not signed in!")
         return redirect('home')
