@@ -4,22 +4,27 @@
 <div class="row">
   <div class="col col-md-6 mb-0">
       <div class="content-section">
+        <fieldset class="border p-2">
+          <legend class="w-auto">Hosts</legend>
           {% for host in context.hosts %}
-	    <div class="card">
-	      <div class="card-body">
-	        <h5 class="card-title">{{ host.name }}</h5>
-	        <h6 class="card-subtitle text-muted">{{ host.city }}, {{ host.state }}</h6>
-	        <p>{{ host.availability }}</p>
-		<a href="{% url 'host-detail' host.id %}" class="card-link">View Details</a>
-	      </div>
-	    </div>
+	          <div class="card mt-2">
+	            <div class="card-body">
+	              <h5 class="card-title">{{ host.name }}</h5>
+	              <h6 class="card-subtitle text-muted">{{ host.city }}, {{ host.state }}</h6>
+	              <p>{{ host.availability }}</p>
+		            <a href="{% url 'host-detail' host.id %}" class="card-link">View Details</a>
+	            </div>
+	          </div>
           {% endfor %}
+        </fieldset>
       </div>
   </div>
   <div class="col col-md-6 mb-0">
     <div class="content-section">
+      <fieldset class="border p-2">
+        <legend class="w-auto">Skiers</legend>
         {% for skier in context.skiers %}
-          <div class="card">
+          <div class="card mt-2">
             <div class="card-body">
               <h5 class="card-title">{{ skier.name }}</h5>
               <h6 class="card-subtitle text-muted">{{ skier.city }}, {{ skier.state }}</h6>
@@ -28,6 +33,7 @@
             </div>
           </div>
         {% endfor %}
+      </fieldset>
     </div>
   </div>
 </div>

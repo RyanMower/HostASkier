@@ -1,17 +1,24 @@
 {% extends "coordinator_base.html" %}
 {% block content %}
-{% for coord in pending_coordinators %}
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">{{ coord.name }}</h5>
-      <a href="#" class="card-link">View Details</a>
-      <form method="POST">
-        {% csrf_token %}
-        <input class="btn btn-primary" type="submit" value="Decline" name="status">
-        <input class="btn btn-primary" type="submit" value="Accept" name="status">
-        <input type="hidden" name="id" value={{ coord.id }}>
-      </form>
+<fieldset class="border p-2">
+  <legend class="w-auto">Pending Coordinators</legend>
+  <div class="col">
+    <div class="content-section">
+    {% for coord in pending_coordinators %}
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ coord.email }}</h5>
+          <a href="#" class="card-link">View Details</a>
+          <form method="POST">
+            {% csrf_token %}
+            <input class="btn btn-primary" type="submit" value="Decline" name="status">
+            <input class="btn btn-primary" type="submit" value="Accept" name="status">
+            <input type="hidden" name="id" value={{ coord.id }}>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
     </div>
   </div>
-{% endfor %}
+</fieldset>
 {% endblock content %}
