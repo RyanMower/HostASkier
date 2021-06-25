@@ -8,15 +8,16 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from host.models import Host
 from django.shortcuts import redirect
-
+from django.urls import reverse_lazy
 
 class HostFormView(FormView):
     template_name = 'host_form.html'
     form_class = HostForm
-    success_url = '/'
+    success_url = reverse_lazy('home')
 
     def form_valid(self, form):
         form.save()
+        messages.success(self.request, f'Thank you! Your submission has been recorded.')
         return super().form_valid(form)
 
 class HostDetailView(DetailView):
@@ -39,11 +40,13 @@ def become_a_host_view(request):
     form = HostForm(request.POST or None)
 
     if form.is_valid():
-        print("Saving")
         form.save()
-        return render(request, "host/host_form.html", context)
+        messages.success(request, f'Thank you! Your submission has been recorded.')
+        return render('home')
+
     else:
-        messages.error(request, f'{request.user.username}\'s Please enter a valid address.')
+        messages.error(request, f'Please enter a valid address.')
+
     context = {
         'form' : form
     }
