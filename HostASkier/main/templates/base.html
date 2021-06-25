@@ -24,18 +24,18 @@
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
               {% if user.is_admin %}
-                <a class="nav-item nav-link" href='{% url "account" %}'>Account</a>
-                <a class="nav-item nav-link" href='{% url "logout" %}'>Logout</a>
                 <a class="nav-item nav-link" href="{% url 'pendinghosts' %}">Pending Hosts</a>
 	            	<a class="nav-item nav-link" href="{% url 'pendingskiers' %}">Pending Skiers</a>
-                <a class="nav-item nav-link" href="{% url 'pendingcoordinators' %}">Pending Coordinators</a>
 	            	<a class="nav-item nav-link" href="{% url 'match' %}">Available Skiers & Hosts</a>
-              {% elif user.is_authenticated %}
+                <a class="nav-item nav-link" href="{% url 'pendingcoordinators' %}">Pending Coordinators</a>
                 <a class="nav-item nav-link" href='{% url "account" %}'>Account</a>
                 <a class="nav-item nav-link" href='{% url "logout" %}'>Logout</a>
+              {% elif user.is_authenticated %}
                 <a class="nav-item nav-link" href="{% url 'pendinghosts' %}">Pending Hosts</a>
                 <a class="nav-item nav-link" href="{% url 'pendingskiers' %}">Pending Skiers</a>
                 <a class="nav-item nav-link" href="{% url 'match' %}">Available Skiers & Hosts</a>
+                <a class="nav-item nav-link" href='{% url "account" %}'>Account</a>
+                <a class="nav-item nav-link" href='{% url "logout" %}'>Logout</a>
               {% else %}
                 <a class="nav-item nav-link" href='{% url "login" %}'>Login</a>
                 <a class="nav-item nav-link" href='{% url "register" %}'>Register</a>
