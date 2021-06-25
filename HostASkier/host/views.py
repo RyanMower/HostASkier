@@ -17,7 +17,7 @@ class HostFormView(FormView):
 
     def form_valid(self, form):
         form.save()
-        messages.success(self.request, f'Thank you! Your submission has been recorded.')
+        messages.success(self.request, f'Thank you {form_class.cleaned_data.get("username")}! Your submission has been recorded.')
         return super().form_valid(form)
 
 class HostDetailView(DetailView):
@@ -31,7 +31,7 @@ class HostDetailView(DetailView):
                 return super().dispatch(request, *args, **kwargs)
                 
         if authenticated:
-            messages.error(request, "Your account is not approved!")
+            messages.error(request, f"{request.user.username}, your account is not approved!")
         else:
             messages.error(request, "Your are not signed in!")
         return redirect('home')

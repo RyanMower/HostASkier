@@ -4,5 +4,5 @@ from skier import views as skier_views
 from host import views as host_views
 
 urlpatterns = [
-    path('', views.start, name='home'),
+    path('', views.home, name='home'),
 ]

@@ -18,7 +18,7 @@ class SkierFormView(FormView):
 
     def form_valid(self, form):
         form.save()
-        messages.success(self.request, f'Thank you! Your submission has been recorded.')
+        messages.success(self.request, f'Thank you {form_class.cleaned_data.get("username")}! Your submission has been recorded.')
         return super().form_valid(form)
 
 class SkierDetailView(DetailView):
