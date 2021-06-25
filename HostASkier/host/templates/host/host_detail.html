@@ -1,0 +1,22 @@
+{% extends "coordinator_base.html" %}
+{% block content %}
+  <article class="media content-section">
+    <div class="media-body">
+      <div class="article-metadata">
+	<small class="text-muted">{{ object.email }} | {{ object.phone_number }}</small>
+      </div>
+      <h2 class="article-title">{{ object.name }}</h2>
+      <h5 class="text-muted">{{ object.start_date }} - {{ object.end_date }}</h5>
+      <p class="article-content">{{ object.address_1 }} {{ object.address_2 }} {{ object.city }}, {{ object.state }} {{ object.zip_code }}</p>
+      <p class="article-content">{{ object.events }}</p>
+      <p class="article-content">{{ object.availability }}</p>
+      <p class="article-content">{{ object.notes }}</p>
+      {% if object.notes %}
+        <p class="article-content">{{ object.notes }}</p>
+      {% endif %}
+      {% if object.image %}
+        <img class="article-img" src="{{ object.image.url }}">
+      {% endif %}
+    </div>
+  </article>
+{% endblock content %}

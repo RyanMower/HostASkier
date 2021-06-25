@@ -3,9 +3,11 @@ from django.http import HttpResponse
 from .forms import HostForm
 from skier.forms import SkierForm
 from django.views.generic.edit import FormView
+from django.views.generic.detail import DetailView
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from host.models import Host
+from django.shortcuts import redirect
 
 
 class HostFormView(FormView):
@@ -16,6 +18,22 @@ class HostFormView(FormView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+
+class HostDetailView(DetailView):
+    model = Host
+
+    def dispatch(self, request, *args, **kwargs):
+        authenticated = False
+        if request.user.is_authenticated:
+            authenticated = True
+            if request.user.approved:
+                return super().dispatch(request, *args, **kwargs)
+                
+        if authenticated:
+            messages.error(request, "Your account is not approved!")
+        else:
+            messages.error(request, "Your are not signed in!")
+        return redirect('home')
 
 def become_a_host_view(request):
     form = HostForm(request.POST or None)

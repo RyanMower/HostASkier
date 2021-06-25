@@ -2,9 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import SkierForm
 from django.views.generic.edit import FormView
+from django.views.generic.detail import DetailView
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from skier.models import Skier
+from django.shortcuts import redirect
 
 # Create your views here.
 class SkierFormView(FormView):
@@ -13,9 +15,24 @@ class SkierFormView(FormView):
     success_url = '/'
 
     def form_valid(self, form):
-        # TODO send email to coordinator
         form.save()
         return super().form_valid(form)
+
+class SkierDetailView(DetailView):
+    model = Skier
+
+    def dispatch(self, request, *args, **kwargs):
+        authenticated = False
+        if request.user.is_authenticated:
+            authenticated = True
+            if request.user.approved:
+                return super().dispatch(request, *args, **kwargs)
+                
+        if authenticated:
+            messages.error(request, "Your account is not approved!")
+        else:
+            messages.error(request, "Your are not signed in!")
+        return redirect('home')
 
 def become_a_skier_view(request):
     form = SkierForm(request.POST or None)

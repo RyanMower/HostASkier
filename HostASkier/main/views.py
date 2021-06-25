@@ -14,7 +14,7 @@ from django.shortcuts import redirect
 def start(request):
     return render(request, 'main/start.html')
 
-class MatchView( AccessMixin,  ListView):
+class MatchView(AccessMixin,  ListView):
     template_name = "match.html"
     context_object_name = "context"
 
@@ -28,7 +28,7 @@ class MatchView( AccessMixin,  ListView):
         if request.user.is_authenticated:
             authenticated = True
             if request.user.approved:
-                return self.super.dispatch()
+                return super().dispatch(request, *args, **kwargs)
                 
         if authenticated:
             messages.error(request, "Your account is not approved!")
