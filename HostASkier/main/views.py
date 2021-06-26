@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import AccessMixin
+from django.views.generic.edit import FormMixin
 from django.contrib import messages
 from itertools import chain
 from host.models import Host
@@ -26,26 +27,28 @@ def home(request):
         }
     return render(request, 'main/home.html', context)
 
-class MatchView(AccessMixin,  ListView):
+class MatchView(AccessMixin, ListView):
     template_name = "match.html"
     context_object_name = "context"
 
+    def get_context_data(self, **kwargs):
+        context = super(MatchView, self).get_context_data(**kwargs)
+        context["form"] = StateForm()
+        return context
+
     def get_queryset(self):
-
-        queryset = {
-            'hosts' : Host.objects.all().filter(approved=True), 
-            'skiers': Skier.objects.all().filter(approved=True),
-            'form'  : StateForm(self.request.POST or None),
-        }
-
-        if self.request.method == "POST":
-            if request.POST.get('state'):
-                queryset = {
-                    'hosts': Host.objects.all().filter(approved=True).filter(state=self.request.POST.get('state')), 
-                    'skiers': Skier.objects.all().filter(approved=True).filter(state=self.request.POST.get('state')),
+        if self.request.method == 'POST':
+            form = StateForm(request.POST)
+            fstate = form.cleaned_data['state']
+            queryset = {
+                    'hosts' : Host.objects.all().filter(approved=True).filter(state=fstate),
+                    'skier' : Skier.objects.all().filter(approved=True).filter(state=fstate),
                 }
-
-        
+        else:
+            queryset = {
+                    'hosts' : Host.objects.all().filter(approved=True), 
+                    'skiers': Skier.objects.all().filter(approved=True),
+                }
         return queryset
 
     def dispatch(self, request, *args, **kwargs):
@@ -60,3 +63,40 @@ class MatchView(AccessMixin,  ListView):
         else:
             messages.error(request, "Your are not signed in!")
         return redirect('home')
+
+@login_required
+def match_view(request):
+    if not request.user.is_authenticated:
+        messages.error(request, "You are not signed in")
+        return redirect('/')
+    if not request.user.approved:
+        messages.error(request, f"{request.user.username}, your account is not approved!")
+        return redirect('/')
+   
+    if request.method == "POST":
+        form = StateForm(request.POST)
+        if form.is_valid():
+            fstate = form.cleaned_data['state']
+            queryset = {
+                    'hosts' : Host.objects.all().filter(approved=True).filter(state=fstate),
+                    'skiers' : Skier.objects.all().filter(approved=True).filter(state=fstate),
+                }
+        else:
+            queryset = {
+                    'hosts' : None,
+                    'skiers' : None,
+                }
+
+    else:
+        queryset = {
+                'hosts' : Host.objects.all().filter(approved=True),
+                'skiers': Skier.objects.all().filter(approved=True),
+            }
+
+    context = {
+            'hosts' : queryset['hosts'],
+            'skiers' : queryset['skiers'],
+            'form' : StateForm(),
+        }
+    
+    return render(request, "main/match.html", context)

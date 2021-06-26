@@ -1,18 +1,17 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-
-<form method="POST">
+<form method="POST" class="form-inline">
   {% csrf_token %}
-  {{ form.as_p }}
+  {{ form | crispy }}
+  <button type="submit" class="btn btn-primary">Filter</button>
 </form>
-
 <div class="row">
   <div class="col col-md-6 mb-0">
       <div class="content-section">
         <fieldset class="border p-2">
           <legend class="w-auto">Hosts</legend>
-          {% for host in context.hosts %}
+          {% for host in hosts %}
 	          <div class="card mt-2">
 	            <div class="card-body">
 	              <h5 class="card-title">{{ host.name }}</h5>
@@ -29,7 +28,7 @@
     <div class="content-section">
       <fieldset class="border p-2">
         <legend class="w-auto">Skiers</legend>
-        {% for skier in context.skiers %}
+        {% for skier in skiers %}
           <div class="card mt-2">
             <div class="card-body">
               <h5 class="card-title">{{ skier.name }}</h5>

@@ -38,7 +38,8 @@ urlpatterns = [
     path('pending-coordinators', account_views.pending_coordinators_view, name='pendingcoordinators'),
     path('become-a-skier', skier_views.SkierFormView.as_view(template_name='skier/skier_form.html'), name='becomeaskier'),
     path('become-a-host', host_views.HostFormView.as_view(template_name='host/host_form.html'), name='becomeahost'),
-    path('match/', main_views.MatchView.as_view(template_name='main/match.html'), name='match'),
+    path('match/', main_views.match_view, name='match'),
+    #path('match/', main_views.MatchView.as_view(template_name='main/match.html'), name='match'),
     path('account/', account_views.account, name='account'),
     path('host/<int:pk>/', host_views.HostDetailView.as_view(), name="host-detail"),
     path('skier/<int:pk>/', skier_views.SkierDetailView.as_view(), name="skier-detail")
