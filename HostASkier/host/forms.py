@@ -9,7 +9,9 @@ class HostForm(forms.ModelForm):
 
     start_date  = forms.DateField(widget=forms.SelectDateWidget)
     end_date    = forms.DateField(widget=forms.SelectDateWidget)
-    image       = forms.ImageField(required=False)
+    image1       = forms.ImageField(required=False)
+    image2       = forms.ImageField(required=False)
+    image3       = forms.ImageField(required=False)
 
     def init(self, args, **kwargs):
         super().init(args, **kwargs)
@@ -37,7 +39,9 @@ class HostForm(forms.ModelForm):
             ),
             'availability',
             'notes',
-            'image',
+            'image1',
+            'image2',
+            'image3',
             Submit('submit', 'Submit')
         )
 
@@ -57,8 +61,12 @@ class HostForm(forms.ModelForm):
             'notes',
             'start_date',
             'end_date',
-            'image',
+            'image1',
+            'image2',
+            'image3',
         ]
         widgets = {
-          'state': USStateSelect(),
+            'availability': forms.Textarea(attrs={'rows':3, 'cols':15}),
+            'notes' : forms.Textarea(attrs={'rows':3, 'cols':15}),
+            'state': USStateSelect(),
         }
