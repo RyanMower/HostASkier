@@ -4,17 +4,10 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column
 from localflavor.us.forms import USStateSelect
 
-
 class HostForm(forms.ModelForm):
-
-    start_date  = forms.DateField(widget=forms.SelectDateWidget)
-    end_date    = forms.DateField(widget=forms.SelectDateWidget)
-    image1       = forms.ImageField(required=False)
-    image2       = forms.ImageField(required=False)
-    image3       = forms.ImageField(required=False)
-
-    def init(self, args, **kwargs):
-        super().init(args, **kwargs)
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
@@ -66,7 +59,11 @@ class HostForm(forms.ModelForm):
             'image3',
         ]
         widgets = {
-            'availability': forms.Textarea(attrs={'rows':3, 'cols':15}),
-            'notes' : forms.Textarea(attrs={'rows':3, 'cols':15}),
-            'state': USStateSelect(),
+          'start_date'  : forms.SelectDateWidget,
+          'end_date'    : forms.SelectDateWidget,
+          'state'       : USStateSelect(),
+          'availability': forms.Textarea(attrs={'rows':3, 'cols':15}),
+          'notes'       : forms.Textarea(attrs={'rows':3, 'cols':15}),
         }
+
+

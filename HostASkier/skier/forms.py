@@ -6,9 +6,6 @@ from localflavor.us.forms import USStateSelect
 
 class SkierForm(forms.ModelForm):
 
-    start_date  = forms.DateField(widget=forms.SelectDateWidget)
-    end_date    = forms.DateField(widget=forms.SelectDateWidget)
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -51,8 +48,10 @@ class SkierForm(forms.ModelForm):
             'university',
         ]
         widgets = {
+          'start_date'  : forms.SelectDateWidget,
+          'end_date'    : forms.SelectDateWidget,
+          'state'       : USStateSelect(),
           'availability': forms.Textarea(attrs={'rows':3, 'cols':15}),
-          'state': USStateSelect(),
         }
 
 
