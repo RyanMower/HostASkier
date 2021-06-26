@@ -37,18 +37,19 @@ class MatchView(AccessMixin, ListView):
         return context
 
     def get_queryset(self):
-        if self.request.method == 'POST':
-            form = StateForm(request.POST)
-            fstate = form.cleaned_data['state']
-            queryset = {
-                    'hosts' : Host.objects.all().filter(approved=True).filter(state=fstate),
-                    'skier' : Skier.objects.all().filter(approved=True).filter(state=fstate),
-                }
-        else:
-            queryset = {
+        queryset = {
                     'hosts' : Host.objects.all().filter(approved=True), 
                     'skiers': Skier.objects.all().filter(approved=True),
-                }
+            }
+        if self.request.method == 'POST':
+            form = StateForm(request.POST)
+            if form.cleaned_data.get['filter_on_state']:
+                fstate = form.cleaned_data['state']
+                queryset = {
+                        'hosts' : Host.objects.all().filter(approved=True).filter(state=fstate),
+                        'skier' : Skier.objects.all().filter(approved=True).filter(state=fstate),
+                    }
+
         return queryset
 
     def dispatch(self, request, *args, **kwargs):
@@ -76,18 +77,25 @@ def match_view(request):
     if request.method == "POST":
         form = StateForm(request.POST)
         if form.is_valid():
-            fstate = form.cleaned_data['state']
-            queryset = {
-                    'hosts' : Host.objects.all().filter(approved=True).filter(state=fstate),
-                    'skiers' : Skier.objects.all().filter(approved=True).filter(state=fstate),
+            if form.cleaned_data['filter_on_state']:
+                fstate = form.cleaned_data['state']
+                print(f"Filtering on {fstate}")
+                queryset = {
+                        'hosts' : Host.objects.all().filter(approved=True).filter(state=fstate),
+                        'skiers' : Skier.objects.all().filter(approved=True).filter(state=fstate),
+                    }
+            else: ## Don't want to filter on state
+                queryset = {
+                    'hosts' : Host.objects.all().filter(approved=True),
+                    'skiers': Skier.objects.all().filter(approved=True),
                 }
-        else:
+        else: ## Form is not valid
             queryset = {
                     'hosts' : None,
                     'skiers' : None,
                 }
 
-    else:
+    else: ## Method is GET
         queryset = {
                 'hosts' : Host.objects.all().filter(approved=True),
                 'skiers': Skier.objects.all().filter(approved=True),

@@ -2,6 +2,8 @@ from django import forms
 from .models import Host
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column
+from localflavor.us.forms import USStateSelect
+
 
 class HostForm(forms.ModelForm):
 
@@ -57,3 +59,6 @@ class HostForm(forms.ModelForm):
             'end_date',
             'image',
         ]
+        widgets = {
+          'state': USStateSelect(),
+        }

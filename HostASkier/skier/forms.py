@@ -2,6 +2,7 @@ from django import forms
 from .models import Skier
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column
+from localflavor.us.forms import USStateSelect
 
 class SkierForm(forms.ModelForm):
 
@@ -51,5 +52,7 @@ class SkierForm(forms.ModelForm):
         ]
         widgets = {
           'availability': forms.Textarea(attrs={'rows':3, 'cols':15}),
+          'state': USStateSelect(),
         }
+
 
