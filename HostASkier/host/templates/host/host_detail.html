@@ -1,29 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
-  <title>Host Details - HostASkier</title>
-  <article class="media content-section">
-    <div class="media-body">
-      <div class="article-metadata">
-	    <small class="text-muted">{{ object.email }} | {{ object.phone_number }}</small>
-      </div>
-      <h2 class="article-title">{{ object.name }}</h2>
-      <h5 class="text-muted">Start/End Date: {{ object.start_date }} - {{ object.end_date }}</h5>
-      <p class="article-content">Location: {{ object.address_1 }} {{ object.address_2 }} {{ object.city }}, {{ object.state }} {{ object.zip_code }}</p>
-      <p class="article-content">Events: {{ object.events }}</p>
-      <p class="article-content">Availability: {{ object.availability }}</p>
-      <p class="article-content">Notes: {{ object.notes }}</p>
-      {% if object.notes %}
-        <p class="article-content">{{ object.notes }}</p>
-      {% endif %}
-      {% if object.image1 %}
-        <img class="article-img" src="{{ object.image1.url }}">
-      {% endif %}
-      {% if object.image2 %}
-       <img class="article-img" src="{{ object.image2.url }}">
-      {% endif %}
-      {% if object.image3 %}
-      `<img class="article-img" src="{{ object.image3.url }}">
-      {% endif %}
+<title>Host Details - HostASkier</title>
+<article class="media content-section">
+  <div class="media-body">
+    <div class="article-metadata">
+    <small class="text-muted">{{ object.email }} | {{ object.phone_number }}</small>
     </div>
-  </article>
+    <h2 class="article-title">{{ object.name }}</h2>
+    <h5 class="text-muted">Start/End Date: {{ object.start_date }} - {{ object.end_date }}</h5>
+    <p class="article-content">Location: {{ object.address_1 }} {{ object.address_2 }} {{ object.city }}, {{ object.state }} {{ object.zip_code }}</p>
+    <p class="article-content">Events: {{ object.events }}</p>
+    <p class="article-content">Availability: {{ object.availability }}</p>
+    <p class="article-content">Notes: {{ object.notes }}</p>
+    {% if object.notes %}
+      <p class="article-content">{{ object.notes }}</p>
+    {% endif %}
+    {% if object.image1 %}
+      <img class="article-img" src="{{ object.image1.url }}">
+    {% endif %}
+    {% if object.image2 %}
+      <img class="article-img" src="{{ object.image2.url }}">
+    {% endif %}
+    {% if object.image3 %}
+    `<img class="article-img" src="{{ object.image3.url }}">
+    {% endif %}
+  </div>
+</article>
 {% endblock content %}

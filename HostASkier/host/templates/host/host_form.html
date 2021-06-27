@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-  <html lang="en">
-    <title>Become A Host - HostASkier</title>
-    <h1>Become A Host Today!</h1>
-    <body>
-        <form method = "post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {% crispy form %}
-        </form>
-    </body>
-    </html>
+<html lang="en">
+<title>Become A Host - HostASkier</title>
+<h1>Become A Host Today!</h1>
+<body>
+    <form method = "post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% crispy form %}
+    </form>
+</body>
+</html>
 {% endblock content %}
 
