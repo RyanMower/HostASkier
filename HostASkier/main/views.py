@@ -77,7 +77,7 @@ def match_view(request):
     if request.method == "POST":
         form = StateForm(request.POST)
         if form.is_valid():
-            if form.cleaned_data['filter_on_state']:
+            if form.cleaned_data['enable_filter']:
                 fstate = form.cleaned_data['state']
                 print(f"Filtering on {fstate}")
                 queryset = {

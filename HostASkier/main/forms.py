@@ -5,4 +5,4 @@ from crispy_forms.layout import Layout, Submit, Row, Column
 
 class StateForm(forms.Form):
     state           = forms.CharField(widget=USStateSelect)
-    filter_on_state = forms.BooleanField(required=False)
+    enable_filter   = forms.BooleanField(required=False, label="Enable Filter")

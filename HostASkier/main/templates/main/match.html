@@ -1,11 +1,20 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-<form method="POST" class="form-inline">
-  {% csrf_token %}
-  {{ form | crispy }}
-  <button type="submit" class="btn btn-primary">Filter</button>
-</form>
+<div class="row" style = "margin-top:10px; margin-botton:10px;">
+  <div class="col col-md-6 mb-0">
+  <form method="POST">
+    {% csrf_token %}
+    <div class="row">
+      {{ form.state|as_crispy_field }}
+    </div>
+    <div class="row">
+      {{ form.enable_filter|as_crispy_field }}
+      <button type="submit" class="btn btn-primary" style="margin-left:10px;">Filter</button>
+    </div>
+  </form>
+  </div>
+</div>
 <div class="row">
   <div class="col col-md-6 mb-0">
       <div class="content-section">
