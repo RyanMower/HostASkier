@@ -20,6 +20,7 @@ class HostFormView(FormView):
         messages.success(self.request, f'Thank you {form.cleaned_data.get("name")}! Your submission has been recorded.')
         return super().form_valid(form)
 
+
 class HostDetailView(DetailView):
     model = Host
 
@@ -36,6 +37,7 @@ class HostDetailView(DetailView):
             messages.error(request, "Your are not signed in!")
         return redirect('home')
 
+
 def become_a_host_view(request):
     form = HostForm(request.POST or None)
 
@@ -51,6 +53,7 @@ def become_a_host_view(request):
         'form' : form
     }
     return render(request, "host/host_form.html", context)
+
 
 @login_required
 def pending_hosts_view(request):

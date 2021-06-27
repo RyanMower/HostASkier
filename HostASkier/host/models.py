@@ -47,7 +47,7 @@ class Host(models.Model):
         # save parent class 
         super().save(*args, **kwargs)
         
-        # Save and resize Host image
+        # Save and resize Host images
         raw_images = [self.image1, self.image2, self.image3] ## Makes sure an image was supplied
         images = []
         for img in raw_images:
@@ -56,7 +56,7 @@ class Host(models.Model):
 
         for image in images:
             img = Image.open(image.path)
-            if img.height > 300 or img.width > 300: #Resize with correct scale
+            if img.height > 300 or img.width > 300: # Resize with correct scale
                 width_bigger = True
                 if img.height > img.width:  # Find which side is bigger
                     width_bigger = False

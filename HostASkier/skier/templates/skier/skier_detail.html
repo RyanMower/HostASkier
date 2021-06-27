@@ -1,21 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
-  <title>Skier Details - HostASkier</title>
-  <article class="media content-section">
-    <div class="media-body">
-      <div class="article-metadata">
-	<small class="text-muted">{{ object.email }} | {{ object.phone_number }}</small>
-      </div>
-      <h2 class="article-title">{{ object.name }}</h2>
-      <h5 class="text-muted">Start/End Date: {{ object.start_date }} - {{ object.end_date }}</h5>
-      <p class="article-content">Location: {{ object.city }}, {{ object.state }}</p>
-      <p class="article-content">Events: {{ object.events }}</p>
-      <p class="article-content">Availability: {{ object.availability }}</p>
-      {% if object.university %}
-      <p class="article-content">University: {{ object.university }}</p>
-      {% else %}
-      <p class="article-content">University: University not specified.</p>
-      {% endif %}
+<title>Skier Details - HostASkier</title>
+<article class="media content-section">
+  <div class="media-body">
+    <div class="article-metadata">
+<small class="text-muted">{{ object.email }} | {{ object.phone_number }}</small>
     </div>
-  </article>
+    <h2 class="article-title">{{ object.name }}</h2>
+    <h5 class="text-muted">Start/End Date: {{ object.start_date }} - {{ object.end_date }}</h5>
+    <p class="article-content">Location: {{ object.city }}, {{ object.state }}</p>
+    <p class="article-content">Events: {{ object.events }}</p>
+    <p class="article-content">Availability: {{ object.availability }}</p>
+    {% if object.university %}
+    <p class="article-content">University: {{ object.university }}</p>
+    {% else %}
+    <p class="article-content">University: University not specified.</p>
+    {% endif %}
+  </div>
+</article>
 {% endblock content %}
