@@ -19,9 +19,10 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from account import views as account_views
-from main import views as main_views
-from skier import views as skier_views
-from host import views as host_views
+from main    import views as main_views
+from skier   import views as skier_views
+from host    import views as host_views
+from account import views as account_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,10 +40,10 @@ urlpatterns = [
     path('become-a-skier', skier_views.SkierFormView.as_view(template_name='skier/skier_form.html'), name='becomeaskier'),
     path('become-a-host', host_views.HostFormView.as_view(template_name='host/host_form.html'), name='becomeahost'),
     path('match/', main_views.match_view, name='match'),
-    #path('match/', main_views.MatchView.as_view(template_name='main/match.html'), name='match'),
     path('account/', account_views.account, name='account'),
     path('host/<int:pk>/', host_views.HostDetailView.as_view(), name="host-detail"),
-    path('skier/<int:pk>/', skier_views.SkierDetailView.as_view(), name="skier-detail")
+    path('skier/<int:pk>/', skier_views.SkierDetailView.as_view(), name="skier-detail"),
+    path('coordinator/<int:pk>/', account_views.AccountDetailView.as_view(), name="coordinator-detail"),
 ]
 
 if settings.DEBUG:

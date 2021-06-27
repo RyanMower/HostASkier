@@ -15,7 +15,7 @@ from .forms import StateForm
 
 
 def home(request):
-    data =  HomeText.objects.first()
+    data =  HomeText.objects.last()
     print(type(data))
     context = {}
     if data:
@@ -72,8 +72,10 @@ def match_view(request):
         messages.error(request, "You are not signed in")
         return redirect('/')
     if not request.user.approved:
-        messages.error(request, f"{request.user.username}, your account is not approved!")
-        return redirect('/')
+        context = {
+            'data' : []
+        }
+        return render(request, "main/not_approved_coordinator.html", context)
    
     if request.method == "POST":
         form = StateForm(request.POST)
