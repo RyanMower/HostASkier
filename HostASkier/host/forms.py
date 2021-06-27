@@ -64,6 +64,8 @@ class HostForm(forms.ModelForm):
           'state'       : USStateSelect(),
           'availability': forms.Textarea(attrs={'rows':3, 'cols':15}),
           'notes'       : forms.Textarea(attrs={'rows':3, 'cols':15}),
+          'address_1'   : forms.TextInput(attrs={'placeholder': 'Stree address or P.O. Box'}),
+          'address_2'   : forms.TextInput(attrs={'placeholder': 'Apt, suite, unit, building, floor, etc.'}),
         }
 
 

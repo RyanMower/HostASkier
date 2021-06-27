@@ -7,22 +7,14 @@
 	<small class="text-muted">{{ object.email }} | {{ object.phone_number }}</small>
       </div>
       <h2 class="article-title">{{ object.name }}</h2>
-      <h5 class="text-muted">{{ object.start_date }} - {{ object.end_date }}</h5>
-      <p class="article-content">{{ object.city }}, {{ object.state }}</p>
-      <p class="article-content">{{ object.events }}</p>
-      <p class="article-content">{{ object.availability }}</p>
-      <p class="article-content">{{ object.notes }}</p>
-      {% if object.notes %}
-        <p class="article-content">{{ object.notes }}</p>
-      {% endif %}
-      {% if object.image1 %}
-        <img class="article-img" src="{{ object.image1.url }}">
-      {% endif %}
-      {% if object.image2 %}
-        <img class="article-img" src="{{ object.image2.url }}">
-      {% endif %}
-      {% if object.image3 %}
-        <img class="article-img" src="{{ object.image3.url }}">
+      <h5 class="text-muted">Start/End Date: {{ object.start_date }} - {{ object.end_date }}</h5>
+      <p class="article-content">Location: {{ object.city }}, {{ object.state }}</p>
+      <p class="article-content">Events: {{ object.events }}</p>
+      <p class="article-content">Availability: {{ object.availability }}</p>
+      {% if object.university %}
+      <p class="article-content">University: {{ object.university }}</p>
+      {% else %}
+      <p class="article-content">University: University not specified.</p>
       {% endif %}
     </div>
   </article>

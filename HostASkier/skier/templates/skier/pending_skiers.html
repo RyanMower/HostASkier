@@ -9,11 +9,11 @@
         <div class="card mt-2">
           <div class="card-body">
             <h5 class="card-title">{{ skier.name }}</h5>
-            <a href="#" class="card-link">View Details</a>
+            <a href="{% url 'skier-detail' skier.id %}" class="card-link">View Details</a>
             <form method="POST">
               {% csrf_token %}
-              <input class="btn btn-danger" type="submit" value="Decline" name="status">
               <input class="btn btn-primary" type="submit" value="Accept" name="status">
+              <input class="btn btn-danger" type="submit" value="Decline" name="status">              
               <input type="hidden" name="id" value={{ skier.id }}>
             </form>
           </div>

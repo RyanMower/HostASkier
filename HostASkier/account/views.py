@@ -7,6 +7,24 @@ import yaml
 import requests 
 from django.contrib.auth.decorators import login_required
 from .models import Account
+from django.views.generic.detail import DetailView
+
+
+class AccountDetailView(DetailView):
+    model = Account
+
+    def dispatch(self, request, *args, **kwargs):
+        authenticated = False
+        if request.user.is_authenticated:
+            authenticated = True
+            if request.user.approved:
+                return super().dispatch(request, *args, **kwargs)
+                
+        if authenticated:
+            messages.error(request, f"{request.user.username}, your account is not approved!")
+        else:
+            messages.error(request, "Your are not signed in!")
+        return redirect('home')
 
 # Register a coordinator
 def register(request):
