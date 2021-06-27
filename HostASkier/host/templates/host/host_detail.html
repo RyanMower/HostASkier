@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+  <title>Host Details - HostASkier</title>
   <article class="media content-section">
     <div class="media-body">
       <div class="article-metadata">
-	<small class="text-muted">{{ object.email }} | {{ object.phone_number }}</small>
+	    <small class="text-muted">{{ object.email }} | {{ object.phone_number }}</small>
       </div>
       <h2 class="article-title">{{ object.name }}</h2>
       <h5 class="text-muted">{{ object.start_date }} - {{ object.end_date }}</h5>
