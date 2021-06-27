@@ -16,10 +16,11 @@ from .forms import StateForm
 
 def home(request):
     data =  HomeText.objects.first()
+    print(type(data))
     context = {}
     if data:
         context = {
-            'data' : data,
+            'data' : data.Home_Text,
         }
     else:
         context = {

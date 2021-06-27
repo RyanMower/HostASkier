@@ -1,24 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
+  <head>
+      <style>
+        .rectangle {
+          border-radius: 25px;
+          background: #61a0b9;
+          padding: 20px;
+          width: 100%;
+          height: 400px;
+          margin-top: 30px;
+          border-radius:7px;
+          text-align:center;
+          vertical-align:middle;
+          justify-content:center;
+          align-items: center;
+        }
+    </style>
+  </head>
+  <title>Home - HostASkier</title>
   <div>
     <img src="../media/home_background.jpg" style="position:relative;" width=100% > 
-    <form action="{% url 'becomeahost' %}">
-      <button type="button" class="btn btn-secondary btn-lg" style="margin-top: 5%; margin-left: 20%; text-align: center;">Become a host today!</button>
-      <!-- <input type="submit" class="button" value="Become a host today! " style="background-color: #7ba5ca; border: black; padding: 15px 32px; text-align: center;"/> -->
-    </form>
-    <a href="{% url 'becomeaskier' %}"  role="button" class="btn btn-secondary btn-lg" style="margin-top: -7%; margin-left: 60%; text-align: center;" value = "Become a skier today!">
-  </div>
-  <p>
-    {{ data}}
-  </p>
+  <body>
+    <div class=rectangle>{{ data }}</div>
+  </body>
 {% endblock content %}
-
-<!-- <div>
-  <img src="../media/home_background.jpg" style="position:relative;" width=100% > 
-  <form action="{% url 'becomeahost' %}">
-    <input type="submit" class="button" value="Become a host today! " style="background-color: #7ba5ca; border: black; padding: 15px 32px; text-align: center;"/> 
-  </form>
-  <form action="{% url 'becomeaskier' %}">
-    <input type="submit" class="button" value="Become a skier today!" style="background-color: #7ba5ca; border: black; padding: 15px 32px; text-align: center;"/> 
-  </form>
-</div> -->

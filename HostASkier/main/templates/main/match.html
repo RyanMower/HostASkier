@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
+<title>Match Skier and Host - HostASkier</title>
 <form method="POST" class="form-inline">
   {% csrf_token %}
   {{ form | crispy }}
